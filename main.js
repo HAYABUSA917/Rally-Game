@@ -61,3 +61,17 @@ function animate() {
   direction = 0;
   renderer.render(scene, camera);
 }
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+// キャンバスを画面サイズに合わせる
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// 背景を緑で塗る（森のイメージ）
+function drawBackground() {
+  ctx.fillStyle = '#228B22'; // 濃い緑（森っぽい色）
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+drawBackground();
