@@ -2,86 +2,18 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>Rally Forest: GR Yaris Demo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <style>
-    html, body { margin: 0; overflow: hidden; height: 100%; }
-    #ui {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 20px;
-      z-index: 10;
-    }
-    #ui button {
-      font-size: 1.2em;
-      padding: 15px 20px;
-      border: none;
-      background: rgba(255,255,255,0.7);
-      border-radius: 10px;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GRヤリス 森ラリーレース</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <canvas id="canvas"></canvas>
-  <div id="ui">
-    <button id="left">←</button>
-    <button id="accel">加速</button>
-    <button id="right">→</button>
+  <canvas id="gameCanvas"></canvas>
+  <div class="controls">
+    <button id="leftBtn">←</button>
+    <button id="goBtn">加速</button>
+    <button id="rightBtn">→</button>
   </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
-
-  <script>
-    const canvas = document.getElementById('canvas');
-    const renderer = new THREE.WebGLRenderer({ canvas });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xa0d0a0);
-
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-    camera.position.set(0, 5, -10);
-
-    // 光
-    const light = new THREE.DirectionalLight(0xffffff, 1);
-    light.position.set(10, 20, 10);
-    scene.add(light);
-
-    // 地面
-    const ground = new THREE.Mesh(
-      new THREE.PlaneGeometry(500, 500),
-      new THREE.MeshPhongMaterial({ color: 0x226622 })
-    );
-    ground.rotation.x = -Math.PI / 2;
-    scene.add(ground);
-
-    // 車（仮の箱）
-    const car = new THREE.Mesh(
-      new THREE.BoxGeometry(2, 1, 4),
-      new THREE.MeshPhongMaterial({ color: 0xff0000 })
-    );
-    car.position.y = 0.5;
-    scene.add(car);
-
-    // 操作
-    let speed = 0;
-    let steer = 0;
-
-    document.getElementById('left').addEventListener('touchstart', () => steer = 1);
-    document.getElementById('left').addEventListener('touchend', () => steer = 0);
-    document.getElementById('right').addEventListener('touchstart', () => steer = -1);
-    document.getElementById('right').addEventListener('touchend', () => steer = 0);
-    document.getElementById('accel').addEventListener('touchstart', () => speed = 0.3);
-    document.getElementById('accel').addEventListener('touchend', () => speed = 0);
-
-    // アニメーション
-    function animate() {
-      requestAnimationFrame(animate);
-      car.rotation.y += steer * 0.03;
-      car.translateZ(speed);
-
-      // カメラ追従
-      const camOffset =
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r148/three.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
